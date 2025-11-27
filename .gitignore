@@ -1,0 +1,12 @@
+build/
+.xmake
+.vscode/
+*.obj
+libf2c/arith.h
+libf2c/f2c.h
+libf2c/math.h
+libf2c/signal1.h
+libf2c/sysdep1.h
+libf2c/*.lib
+libf2c/*.a
+*.out
