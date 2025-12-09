@@ -10,9 +10,11 @@ target("libf2c")
     remove_files("libf2c/qbitshft.c")
     remove_files("libf2c/ftell64_.c")
     set_basename("f2c")
-    if is_plat("windows") then
-        add_includedirs("libf2c/msvc")    
+    if is_plat("windows", "mingw") then
         add_defines("MSDOS", "USE_CLOCK", "NO_ONEXIT", "NO_My_ctype", "NO_ISATTY")
+    end
+    if is_plat("windows") then 
+        add_includedirs("libf2c/msvc")    
     end
     on_clean("windows", function(target)
         os.cd(path.join(os.scriptdir(), "libf2c"))
