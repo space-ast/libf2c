@@ -16,6 +16,9 @@ target("libf2c")
     if is_plat("windows") then 
         add_includedirs("libf2c/msvc")    
     end
+    if is_plat("linux") then
+        add_cxflags("-fPIC")
+    end
     on_clean("windows", function(target)
         os.cd(path.join(os.scriptdir(), "libf2c"))
         os.rm("*.lib")
