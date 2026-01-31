@@ -3,8 +3,9 @@ target("libf2c")
     add_headerfiles("libf2c/f2c.h")
     add_includedirs("include", {public=true})
     add_files("libf2c/*.c")
-    add_files("libf2c/*.cpp")
+    -- remove architecture checking file
     remove_files("libf2c/arithchk.c")
+    -- remove files for longint
     remove_files("libf2c/pow_qq.c")
     remove_files("libf2c/qbitbits.c")
     remove_files("libf2c/qbitshft.c")
@@ -40,6 +41,7 @@ target("libf2c")
     end)
 
     before_build("linux", function(target)
+        -- compile and run arithchk.c to generate arith.h
         if not os.exists("arith.h") then
             local cc = target:tool("cc")
             os.cd(path.join(os.scriptdir(), "libf2c"))
@@ -65,7 +67,7 @@ target("libf2c")
                 os.cp(filepath .. "0", filepath)
             end
         end
-        prepare_file0("include/f2c.h")
+        prepare_file0("libf2c/f2c.h")
         prepare_file0("libf2c/signal1.h")
         prepare_file0("libf2c/sysdep1.h")
         prepare_file0("libf2c/fio.h")
